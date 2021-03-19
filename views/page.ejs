@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+        <%- include('./partials/header') %>
+   </head>
+   <body>
+       <div>
+           <center><h3 style="font-weight: bolder; text-decoration: underline;">Below is the list of people and their hobbies</h1></center>
+           <% let countUndefined = 0
+            let count = 0
+            let badIndex = undefined;
+             let badData = 'bad data'
+            for(let person of people){
+                if(person.name === undefined){
+                    countUndefined++
+                    person.name = 'Name Missing'
+                }
+                if(person.age === undefined){
+                    countUndefined++
+                    person.age = 'Age Missing'
+                }
+                if(person.hobbies === undefined){
+                    countUndefined++
+                    person.hobbies = 'Hobbies Missing'
+                }
+                if(countUndefined === 3){
+                    person = badData
+                    badIndex = count
+                }
+                count++
+                countUndefined = 0 
+        }
+        for(let person of people){%>
+            <center>
+            <ul style="border: 1px solid #5b5b5b; border-radius: 4px; background-color: #f7f2f2; list-style-type: square; width: 150px;"><%
+                badIndex = count-1;
+                if(people.indexOf(person) === badIndex){
+                    %><li style="font-weight: bold; color: red;">Bad Data</li><%
+                }else{
+                    for(let key in person){                      
+                        %><li style="font-weight: lighter;"><%=person[key]%></li><%
+                    }
+                }
+                %></ul></center><%
+        }%>
+        
+
+        
+           </ul>
+       </div>
+   </body>
+</html>
